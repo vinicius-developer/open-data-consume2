@@ -66,6 +66,12 @@ public class ConstrutorDeputadoParametros {
         return this;
     }
 
+    public ConstrutorDeputadoParametros setPagina(Integer pagina) {
+        this.validateInteger(pagina);
+        this.parametros += "&pagina=" + pagina;
+        return this;
+    }
+
     private void validateOrderBy(String field) {
         List<String> listPermitedFields = 
             Arrays.asList("id", "idLegislatura", "nome", "siglaUF", "siglaPartido");
