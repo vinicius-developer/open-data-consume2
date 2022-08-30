@@ -1,6 +1,7 @@
 package open.data.consume.deputados.lista.ds;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.google.gson.Gson;
 
@@ -30,17 +31,25 @@ public class WrapperResultadoListaDeputados {
 
     public Integer getCurrentPage() {
 
-        List<Link> links = this.result.listaLinks();
+        Optional<Link> list = this.result.listaLinks().stream().filter(
+            item ->  item.getRel() == "self"
+        ).collect(Optional<Link>);
 
-        String href = links.get(1).getHref();
+        for (Link link : this.result.listaLinks()) {
 
-        int numberCurrentPage = this.findNumberPage(href) - 1;
-
-        if(numberCurrentPage == 0) {
-            return 1;
+            if(link.getRel() == "self") {
+            
+                int numberCurrentPage = this.findNumberPage(link.getHref()) - 1;
+    
+                if(numberCurrentPage == 0) {
+                    return 1;
+                }
+    
+                return numberCurrentPage;
+    
+            }
+            
         }
-
-        return numberCurrentPage;
 
     }
 
