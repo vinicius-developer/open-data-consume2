@@ -1,6 +1,6 @@
-package open.data.consume.deputados;
+package open.data.consume.deputados.lista.ds;
 
-public class Deputado implements DeputadosInterface { 
+public class Deputado { 
     
     private String email;
     

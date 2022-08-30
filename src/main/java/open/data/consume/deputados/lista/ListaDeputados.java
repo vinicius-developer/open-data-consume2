@@ -1,8 +1,9 @@
-package open.data.consume.deputados;
+package open.data.consume.deputados.lista;
 
 import java.net.http.HttpResponse;
 import java.io.IOException;
 
+import open.data.consume.deputados.lista.ds.WrapperResultadoListaDeputados;
 import open.data.consume.http.HttpClientApiInterface;
 
 public class ListaDeputados implements ListaDeputadosInteface {
@@ -20,16 +21,16 @@ public class ListaDeputados implements ListaDeputadosInteface {
     }
 
     @Override
-    public DeserilizarJsonListDeputados pegar() throws IOException, InterruptedException {
+    public WrapperResultadoListaDeputados pegar() throws IOException, InterruptedException {
         String path = this.rota + this.parametros;
 
         HttpResponse<String> response = this.httpClient.get(path);
 
-        DeserilizarJsonListDeputados result = new DeserilizarJsonListDeputados(response.body());
+        return new WrapperResultadoListaDeputados(response.body());
+    }
 
-        System.out.println(result.getCurrentPage());
-        return result;
-
+    public void setParametros(String parametros) {
+        this.parametros = parametros;
     }
     
 }

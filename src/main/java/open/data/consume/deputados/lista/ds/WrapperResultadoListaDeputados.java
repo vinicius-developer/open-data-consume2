@@ -1,4 +1,4 @@
-package open.data.consume.deputados;
+package open.data.consume.deputados.lista.ds;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import com.google.gson.Gson;
 
 import open.data.consume.commom.paginacao.Link;
 
-public class DeserilizarJsonListDeputados {
+public class WrapperResultadoListaDeputados {
 
     ResultadoListaDeputados result;
 
-    public DeserilizarJsonListDeputados(String from) {
+    public WrapperResultadoListaDeputados(String from) {
         this.result = new Gson().fromJson(from, ResultadoListaDeputados.class);
     }
 
@@ -44,7 +44,7 @@ public class DeserilizarJsonListDeputados {
 
     }
 
-    public Integer findNumberPage(String href) {
+    private Integer findNumberPage(String href) {
 
         Integer startIndex = href.indexOf("&pagina=") + 8;
 

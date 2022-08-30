@@ -1,11 +1,11 @@
-package open.data.consume.deputados;
+package open.data.consume.deputados.lista.ds;
 
 import java.util.List;
 
 
 import open.data.consume.commom.paginacao.Link;
 
-public class ResultadoListaDeputados {
+class ResultadoListaDeputados {
 
     private List<Deputado> dados;
 
