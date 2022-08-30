@@ -14,12 +14,26 @@ public class App
 {
     public static void main( String[] args ) throws IOException, InterruptedException
     {
-        ConstrutorDeputadoParametros constructor = new ConstrutorDeputadoParametros()
-            .setNome("Bolsonaro");
 
-        WrapperResultadoListaDeputados wrapper = new DeputiesFactory()
-            .list(constructor.toString());
+        WrapperResultadoListaDeputados wrapper;
+        Integer page = 1;
 
-        System.out.println(wrapper.getListDeputies());
+        do {
+
+            ConstrutorDeputadoParametros constructor = new ConstrutorDeputadoParametros()
+                .setNome("Edmundo")
+                .setItens(1)
+                .setPagina(2);
+        
+        
+            wrapper = new DeputiesFactory()
+                .list(constructor.toString());
+
+            System.out.println(wrapper.getListDeputies());
+
+            System.out.println(wrapper.getCurrentPage() + " " +  wrapper.getLastPage() + " page: " + page);
+
+        } while (wrapper.getCurrentPage() <= wrapper.getLastPage());
+
     }
 }
