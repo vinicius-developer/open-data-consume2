@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import open.data.consume.deputados.lista.ds.Deputado;
 import open.data.consume.deputados.lista.ds.WrapperResultadoListaDeputados;
 
-public class WrapperResultadoListaDeputadosTest {
+class WrapperResultadoListaDeputadosTest {
 
     private WrapperResultadoListaDeputados result;
 
@@ -48,10 +48,30 @@ public class WrapperResultadoListaDeputadosTest {
 
         WrapperResultadoListaDeputados listDeputados = new WrapperResultadoListaDeputados(json);
 
-        Integer currentPage = this.result.getCurrentPage();
+        Integer currentPage = listDeputados.getCurrentPage();
 
         assertEquals(1, currentPage);
     }
 
+    @Test
+    void verifyIfNoHasPageParameter() {
+        String json = "{\"dados\":[{\"id\":3812,\"uri\":\"https://dadosabertos.camara.leg.br/api/v2/deputados/3812\",\"nome\":\"EDMUNDODAFONSECA\",\"siglaPartido\":null,\"uriPartido\":null,\"siglaUf\":\"SP\",\"idLegislatura\":25,\"urlFoto\":\"https://www.camara.leg.br/internet/deputado/bandep/3812.jpg\",\"email\":null},{\"id\":73827,\"uri\":\"https://dadosabertos.camara.leg.br/api/v2/deputados/73827\",\"nome\":\"EDMUNDOGALDINO\",\"siglaPartido\":\"PDT\",\"uriPartido\":\"https://dadosabertos.camara.leg.br/api/v2/partidos/36786\",\"siglaUf\":\"TO\",\"idLegislatura\":52,\"urlFoto\":\"https://www.camara.leg.br/internet/deputado/bandep/73827.jpg\",\"email\":null},{\"id\":131218,\"uri\":\"https://dadosabertos.camara.leg.br/api/v2/deputados/131218\",\"nome\":\"EDMUNDOMONTEIRO\",\"siglaPartido\":\"ARENA\",\"uriPartido\":\"https://dadosabertos.camara.leg.br/api/v2/partidos/36768\",\"siglaUf\":\"SP\",\"idLegislatura\":43,\"urlFoto\":\"https://www.camara.leg.br/internet/deputado/bandep/131218.jpg\",\"email\":null}],\"links\":[{\"rel\":\"self\",\"href\":\"https://dadosabertos.camara.leg.br/api/v2/deputados?nome=Edmundo&itens=10&ordem=ASC&ordenarPor=nome\"},{\"rel\":\"first\",\"href\":\"https://dadosabertos.camara.leg.br/api/v2/deputados?nome=Edmundo&ordem=ASC&ordenarPor=nome&pagina=1&itens=10\"},{\"rel\":\"last\",\"href\":\"https://dadosabertos.camara.leg.br/api/v2/deputados?nome=Edmundo&ordem=ASC&ordenarPor=nome&pagina=1&itens=10\"}]}";
 
+        WrapperResultadoListaDeputados listDeputados = new WrapperResultadoListaDeputados(json);
+
+        Integer currentPage = listDeputados.getCurrentPage();
+
+        assertEquals(1, currentPage);
+    }
+
+    @Test
+    void verifyIfParameterInFinalOfLink() {
+        String json = "{\"dados\":[{\"id\":3812,\"uri\":\"https://dadosabertos.camara.leg.br/api/v2/deputados/3812\",\"nome\":\"EDMUNDODAFONSECA\",\"siglaPartido\":null,\"uriPartido\":null,\"siglaUf\":\"SP\",\"idLegislatura\":25,\"urlFoto\":\"https://www.camara.leg.br/internet/deputado/bandep/3812.jpg\",\"email\":null},{\"id\":73827,\"uri\":\"https://dadosabertos.camara.leg.br/api/v2/deputados/73827\",\"nome\":\"EDMUNDOGALDINO\",\"siglaPartido\":\"PDT\",\"uriPartido\":\"https://dadosabertos.camara.leg.br/api/v2/partidos/36786\",\"siglaUf\":\"TO\",\"idLegislatura\":52,\"urlFoto\":\"https://www.camara.leg.br/internet/deputado/bandep/73827.jpg\",\"email\":null},{\"id\":131218,\"uri\":\"https://dadosabertos.camara.leg.br/api/v2/deputados/131218\",\"nome\":\"EDMUNDOMONTEIRO\",\"siglaPartido\":\"ARENA\",\"uriPartido\":\"https://dadosabertos.camara.leg.br/api/v2/partidos/36768\",\"siglaUf\":\"SP\",\"idLegislatura\":43,\"urlFoto\":\"https://www.camara.leg.br/internet/deputado/bandep/131218.jpg\",\"email\":null}],\"links\":[{\"rel\":\"self\",\"href\":\"https://dadosabertos.camara.leg.br/api/v2/deputados?nome=Edmundo&itens=10&ordem=ASC&ordenarPor=nome&pagina=2\"},{\"rel\":\"first\",\"href\":\"https://dadosabertos.camara.leg.br/api/v2/deputados?nome=Edmundo&ordem=ASC&ordenarPor=nome&pagina=1&itens=10\"},{\"rel\":\"last\",\"href\":\"https://dadosabertos.camara.leg.br/api/v2/deputados?nome=Edmundo&ordem=ASC&ordenarPor=nome&pagina=1&itens=10\"}]}";
+
+        WrapperResultadoListaDeputados listDeputados = new WrapperResultadoListaDeputados(json);
+
+        Integer currentPage = listDeputados.getCurrentPage();
+
+        assertEquals(2, currentPage);
+    }
 }

@@ -18,22 +18,21 @@ public class App
         WrapperResultadoListaDeputados wrapper;
         Integer page = 1;
 
-        do {
 
-            ConstrutorDeputadoParametros constructor = new ConstrutorDeputadoParametros()
+        ConstrutorDeputadoParametros constructor = new ConstrutorDeputadoParametros()
                 .setNome("Edmundo")
                 .setItens(1)
                 .setPagina(2);
-        
-        
-            wrapper = new DeputiesFactory()
+
+        wrapper = new DeputiesFactory()
                 .list(constructor.toString());
 
-            System.out.println(wrapper.getListDeputies());
+        System.out.println(wrapper.getListDeputies());
 
-            System.out.println(wrapper.getCurrentPage() + " " +  wrapper.getLastPage() + " page: " + page);
+        System.out.println(wrapper.getCurrentPage() + " " +  wrapper.getLastPage() + " page: " + page);
 
-        } while (wrapper.getCurrentPage() <= wrapper.getLastPage());
+
+        wrapper.getCurrentPage();
 
     }
 }

@@ -1,7 +1,9 @@
 package open.data.consume.deputados.lista.ds;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collector;
 
 import com.google.gson.Gson;
 
@@ -21,9 +23,9 @@ public class WrapperResultadoListaDeputados {
 
     public Integer getLastPage() {
 
-        List<Link> links = this.result.listaLinks();
+        Link link = this.getEspecificLinkOfList("last");
 
-        String href = links.get(links.size() - 1).getHref();
+        String href = link.getHref();
 
         return this.findNumberPage(href);
 
@@ -31,41 +33,54 @@ public class WrapperResultadoListaDeputados {
 
     public Integer getCurrentPage() {
 
-        Optional<Link> list = this.result.listaLinks().stream().filter(
-            item ->  item.getRel() == "self"
-        ).collect(Optional<Link>);
+        Link link = this.getEspecificLinkOfList("self");
 
-        for (Link link : this.result.listaLinks()) {
+        int numberCurrentPage;
 
-            if(link.getRel() == "self") {
-            
-                int numberCurrentPage = this.findNumberPage(link.getHref()) - 1;
-    
-                if(numberCurrentPage == 0) {
-                    return 1;
-                }
-    
-                return numberCurrentPage;
-    
-            }
-            
+        try {
+            numberCurrentPage = this.findNumberPage(link.getHref());
+        } catch (Exception e) {
+            numberCurrentPage = 1;
         }
 
+        return numberCurrentPage;
+    }
+
+    private Link getEspecificLinkOfList(String name) {
+        return this.result.listaLinks()
+                .stream()
+                .filter(item -> item.getRel().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(
+                        "nao foi possivel capturar a informação de pagina"
+                ));
     }
 
     private Integer findNumberPage(String href) {
 
-        Integer startIndex = href.indexOf("&pagina=") + 8;
+        int startIndex = href.indexOf("&pagina=") + 8;
 
         this.findNumberPageException(8);
 
-        Integer endIndex = href.substring(startIndex).indexOf("&") + startIndex;
+        int endIndex = this.getEndIndex(href, startIndex);
 
         String param = href.substring(startIndex, endIndex);
 
         return this.convertPathParamInInteger(param);
 
     }
+
+    private Integer getEndIndex(String href, Integer startIndex) {
+
+        int endIndex = href.indexOf("&",  startIndex);
+
+        if(endIndex == -1) {
+            endIndex = href.length();
+        }
+
+        return endIndex;
+    }
+
 
     private void findNumberPageException(Integer index) {
         if (index == -1) {

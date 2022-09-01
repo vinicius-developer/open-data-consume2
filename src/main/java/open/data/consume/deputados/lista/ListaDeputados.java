@@ -3,16 +3,15 @@ package open.data.consume.deputados.lista;
 import java.net.http.HttpResponse;
 import java.io.IOException;
 
+import open.data.consume.deputados.ApiPort;
 import open.data.consume.deputados.lista.ds.WrapperResultadoListaDeputados;
 import open.data.consume.http.HttpClientApiInterface;
 
-public class ListaDeputados implements ListaDeputadosInteface {
+public class ListaDeputados implements ApiPort<WrapperResultadoListaDeputados> {
 
-    private String parametros;
+    private final String parametros;
 
-    private final HttpClientApiInterface httpClient; 
-
-    private final String rota = "/deputados";
+    private final HttpClientApiInterface httpClient;
 
     public ListaDeputados(HttpClientApiInterface httpClient, String parametros) {
         this.parametros = parametros;
@@ -22,15 +21,12 @@ public class ListaDeputados implements ListaDeputadosInteface {
 
     @Override
     public WrapperResultadoListaDeputados pegar() throws IOException, InterruptedException {
-        String path = this.rota + this.parametros;
+        String path = "/deputados" + this.parametros;
 
         HttpResponse<String> response = this.httpClient.get(path);
 
         return new WrapperResultadoListaDeputados(response.body());
     }
 
-    public void setParametros(String parametros) {
-        this.parametros = parametros;
-    }
-    
+
 }
