@@ -10,4 +10,14 @@ public class ResultadoInformacaoDeputado {
 
     private List<Link> links;
 
+    @Override
+    public String toString() {
+        return "{dados: " + this.dados + ", " +
+            "links: " + this.links + "}"; 
+    }
+
+    public Deputado getDeputado() {
+        return this.dados;
+    }
+
 }
