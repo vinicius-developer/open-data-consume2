@@ -1,9 +1,6 @@
 package open.data.consume.deputados.lista.ds;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collector;
 
 import com.google.gson.Gson;
 
