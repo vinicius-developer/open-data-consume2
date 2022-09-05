@@ -52,16 +52,15 @@ public class Deputado {
 
     @Override
     public String toString() {
-        return "{\n" +
-            "\temail: " + this.email + ", \n" +
-            "\tid: " + this.id + ", \n" +
-            "\tidLegislatura: " + this.idLegislatura + ", \n" +
-            "\tnome: " + this.nome + ", \n" +
-            "\tsiglaUf: " + this.siglaUf + ", \n" +
-            "\turi: " + this.uri + ", \n" +
-            "\turiPartido: " + this.uriPartido + ", \n" +
-            "\turlFoto: " + this.urlFoto + " \n" 
-        + "\n}";
+        return "{" +
+            "email: " + this.email + ", " +
+            "id: " + this.id + ", " +
+            "idLegislatura: " + this.idLegislatura + ", " +
+            "nome: " + this.nome + ", " +
+            "siglaUf: " + this.siglaUf + ", " +
+            "uri: " + this.uri + ", " +
+            "uriPartido: " + this.uriPartido + ", " +
+            "urlFoto: " + this.urlFoto + "}";
     }
 
 }

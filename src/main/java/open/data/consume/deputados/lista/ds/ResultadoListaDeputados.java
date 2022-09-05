@@ -21,11 +21,10 @@ class ResultadoListaDeputados {
 
     @Override
     public String toString() {
-        return "{\n\t dados:" + 
+        return "{dados:" + 
                 this.dados +
-                "\nlinks: " + 
-                this.links +
-                "\n}";
+                "links: " + 
+                this.links + "}";
     }
     
 }
