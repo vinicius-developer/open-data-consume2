@@ -21,10 +21,9 @@ public class Link {
 
     @Override
     public String toString() {
-        return "{\n" +
-                "\trel: " + this.rel + ", \n" +
-                "\thref: " + this.href + " \n"
-                + "\n}";
+        return "{" +
+                "rel: " + this.rel + ", " +
+                "href: " + this.href + "}";
     }
 
 }
